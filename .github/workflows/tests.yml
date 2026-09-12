@@ -32,16 +32,16 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Install Node Dependencies & Build Assets
-        run: |
-          npm ci
-          npm run build
-
       - name: Copy Environment & Install Composer Dependencies
         run: |
           cp .env.example .env
           composer install --prefer-dist --no-progress --no-interaction
           php artisan key:generate
+
+      - name: Install Node Dependencies & Build Assets
+        run: |
+          npm ci
+          npm run build
 
       - name: Run CI Checks
         run: composer ci:check
